@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PH-Tube</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/1250a709fc.js" crossorigin="anonymous"></script>
+    <style>
+        .lato-regular {
+            font-family: "Lato", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body class="lato-regular">
+    <!-- ......................start header....................... -->
+    <header class="border-2 border-green-500">
+        <!-- nav bar -->
+        <nav
+            class="navbar-container flex justify-between  py-5 items-center mb-14 border-2 border-blue-500 w-11/12 mx-auto">
+            <div class="w-[100px]  flex gap-3 items-center">
+                <img src="./asset/logo.webp" alt="ph-tube-logo">
+                <h2 class="text-3xl">Peddy</h2>
+            </div>
+            <div class="btn-middle flex gap-8 text-gray-500">
+                <button>Home</button>
+                <button>Shop</button>
+                <button>Contact</button>
+
+            </div>
+            <div
+                class="frofile-icon border border-x-gray-200 p-2 rounded-full w-10 h-10 flex justify-center items-center">
+                <i class="fa-regular fa-user"></i>
+            </div>
+        </nav>
+        <!-- banner section -->
+        <section
+            class="banner flex flex-col justify-center items-center gap-y-6 w-11/12 mx-auto border-2 border-blue-500">
+            <div class="banner-content flex flex-col justify-center items-center gap-y-6 text-center">
+                <h5 class="font-bold text-2xl text-gray-500">Briging Falilies Together❤️</h5>
+                <h1 class="text-7xl text-black font-semibold">Your Path to Adoption <br>Starts Here</h1>
+                <p>It is a long established fact that a reader will be distracted by the readable
+                    content of a page when
+                    looking <br> at its layout. The point of using Lorem Ipsum is that it has a.
+                <p>
+            </div>
+            <button class=" rounded-lg colorBtn px-8 py-3 text-xl">View More</button>
+            <div class="banner-img">
+                <img src="./asset/pet.webp" alt="" class="w-full max-w-md">
+            </div>
+        </section>
+        <!-- btn-categories -->
+        <!-- <nav id="btn-categories-container" class="flex justify-center gap-4 py-4"> -->
+
+        </nav>
+    </header>
+    <!-- ...............start Main Section....................... -->
+    <main class="border-2 border-amber-950 mt-24">
+        <section id="pets-container" class="w-11/12 mx-auto h-96  border-2 border-red-700">
+            <div class="btn-category-context text-center flex flex-col gap-y-6">
+                <h2 class="catergory-title text-4xl font-bold">Adopt Your Best Friend</h2>
+                <p class="catefory-des text-gray-500">It is a long established fact that a reader will be distracted by
+                    the readable content of <br> page when looking at its layout. The point of using Lorem Ipsum is that
+                    it has a.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- daisy ui modal -->
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box" id="modalBoxId">
+            <div id="modal-content"></div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- scripts -->
+    <!-- <script src="./scripts/video.js"></script> -->
+</body>
+
+</html>

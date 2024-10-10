@@ -34,13 +34,41 @@ const displayAllFetchPets = (pets) => {
   pets.forEach((element) => {
     // console.log('element: ', element);
     const createPetCardDiv = document.createElement('div');
-    createPetCardDiv.classList = 'card bg-base-100 w-96 shadow-xl';
+    createPetCardDiv.classList = 'border-2 p-5 rounded-lg';
     createPetCardDiv.innerHTML = `
-        <figure>
+        <div class = "flex flex-col border-b-2">
+            <figure>
             <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes" />
-        </figure>
+                src=${element.image}
+                class="w-full h-full object-cover rounded-md"
+            </figure>
+            <div>
+                <h5 class="pet-name font-bold text-xl" >${element.pet_name}</h5>
+                <p class="breed text-gray-400">
+                    <i class="fa-solid fa-qrcode"></i>
+                     Breed: ${element.breed}</p>
+                <p class="birth text-gray-400">
+                    <i class="fa-regular fa-calendar"></i>
+                     Birth: ${new Date(
+                       element.date_of_birth
+                     ).getFullYear()}</p>  
+                <p class="gender text-gray-400">
+                    <i class="fa-solid fa-mercury"></i>
+                     Gender: ${element.gender}</p>
+                <p class="price text-gray-400">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                     Price: ${element.price}$</p>
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row lg:flex-row items-center mt-3 flex-wrap gap-1 lg:justify-evenly"> 
+            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
+                <i class="fa-regular fa-thumbs-up"></i>
+            </button>
+            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>
+            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
+        </div>
+       
+
     `;
     getPetsCardsContainer.append(createPetCardDiv);
   });

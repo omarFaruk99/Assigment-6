@@ -67,7 +67,8 @@
         </nav>
     </header>
     <!-- ...............start Main Section....................... -->
-    <main class="border-2 border-amber-950 mt-24">
+    <main class="border-2 border-amber-950 mt-16 sm:mt-24 mb-96">
+        <!-- ............section: 1 [pets context, pets category btn]..........-->
         <section id="pets-container" class="w-11/12 mx-auto border-2 border-red-700">
             <!-- pets container contex -->
             <div class="btn-category-context text-center flex flex-col gap-y-3 md:gap-y-6">
@@ -79,9 +80,26 @@
             </div>
             <!-- pets category button container -->
             <nav id="btn-category-container"
-                class="flex flex-col sm:flex-row justify-around  items-center text-center mt-12 gap-4">
+                class="flex flex-col sm:flex-row justify-between  items-center text-center mt-12 gap-4">
 
             </nav>
+            <!-- sort by price 'button' -->
+            <div class="mt-8 flex items-center justify-between">
+                <h5 class="font-semibold text-base sm:text-2xl">Best Deal For You</h5>
+                <button id="btn-sortPrice"
+                    class="rounded-md sm:rounded-lg colorBtn px-3 sm:px-8 py-1 sm:py-3 text-base sm:text-xl">Sort by
+                    Price</button>
+
+            </div>
+        </section>
+        <!-- ............Section: 2 [pets cards container].................... -->
+        <section class="w-11/12 mx-auto mt-8 border-2 border-violet-700 h-96">
+            <div class="grid grid-cols-4 ">
+                <div id="pets-cards-container"
+                    class="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-2 border-yellow-500"></div>
+                <div id="like-btn-append" class="col-span-1 grid grid-cols-1 md:grid-cols-2  border border-gray-300">
+                    append</div>
+            </div>
         </section>
     </main>
 

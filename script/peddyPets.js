@@ -5,12 +5,62 @@ const fetchPetCategory = () => {
   );
 };
 
-//.Fetch All Pet Categories..................................................................
+//.Fetch All Pets..................................................................
 const fetchAllPets = () => {
   fetch('https://openapi.programming-hero.com/api/peddy/pets').then((res) =>
     res.json().then((data) => displayAllFetchPets(data.pets))
   );
 };
+
+// Fetch pets by category
+const loadCategoryPet = (petCategory) => {
+  // console.log(petCategory);
+  const petCategoryBtnId = document.getElementById(`pet-${petCategory}`);
+  const petCategoryBtnClass = document.querySelectorAll('.petsBtn');
+
+  // Remove 'colorBtn: active btn bg color' class from all buttons (deactivate all)
+  petCategoryBtnClass.forEach((activeBtn) => {
+    activeBtn.classList.remove('colorBtn');
+  });
+
+  // Add 'colorBtn: active btn bg color' class to the clicked button (activate current button)
+  petCategoryBtnId.classList.add('colorBtn');
+
+  fetch(
+    `https://openapi.programming-hero.com/api/peddy/category/${petCategory}`
+  )
+    .then((res) => res.json())
+    .then((data) => displayAllFetchPets(data.data)) // Function to display videos
+    .catch((err) => console.log(err));
+};
+
+// Function to fetch videos from the API[......for sorting purpose].............????????????????????.....................
+async function fetchPets() {
+  try {
+    const response = await fetch(
+      'https://openapi.programming-hero.com/api/peddy/pets'
+    );
+    const data = await response.json();
+    if (data.status) {
+      // console.log('after fetch: ', data);
+      // console.log('data.pets :', data.pets);
+      return data.pets; // Return the list of pets
+    } else {
+      console.error('Failed to fetch videos');
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return [];
+  }
+}
+
+// function to sort videos by views[.....for sorting purpose].............................................................
+function sortpetsByPrice(pets) {
+  // pets.sort((a, b) => parseViews(a.price) - parseViews(b.price));
+  pets.sort((a, b) => a.price - b.price);
+  displayAllFetchPets(pets); // Re-render the sorted videos[send to displayVideos function]
+}
 
 // display All Pet Catefories Button..........................................................
 const displayFetchPetCategory = (petCategory) => {
@@ -22,7 +72,7 @@ const displayFetchPetCategory = (petCategory) => {
     // console.log('inside for each: ', element);
     const createPetCategorydiv = document.createElement('div');
     createPetCategorydiv.innerHTML = `
-        <button class="border border-gray-200 rounded-lg flex gap-2 justify-center items-center px-6 py-2 font-semibold w-40 sm:w-40 md:w-36 lg:w-48"><img src=${element.category_icon} alt="" class="w-8"> ${element.category}</button>
+        <button id="pet-${element.category}" onclick="loadCategoryPet('${element.category}')" class="border petsBtn border-gray-200 rounded-lg flex gap-2 justify-center items-center px-6 py-2 font-semibold w-40 sm:w-40 md:w-36 lg:w-48"><img src=${element.category_icon} alt="" class="w-8"> ${element.category}</button>
     `;
     getPetCategoryBtnContainer.append(createPetCategorydiv);
   });
@@ -31,6 +81,22 @@ const displayFetchPetCategory = (petCategory) => {
 // diplay All Pets into cards
 const displayAllFetchPets = (pets) => {
   const getPetsCardsContainer = document.getElementById('pets-cards-container');
+  getPetsCardsContainer.innerHTML = '';
+  // if any 'pets' is empty array then it show a customize message
+  if (pets.length === 0) {
+    getPetsCardsContainer.classList.remove('grid');
+    getPetsCardsContainer.innerHTML = `
+      <div class =" min-h-[500px] flex flex-col justify-center items-center gap-4"> 
+          <img src="./asset/error.webp">
+          <h5 class="font-bold text-lg md:text-3xl" >No Information Available</h5>
+          <p class="text-sm md:text-base text-gray-400 text-center">It is a long established fact that a reader will be distracted by the readable content of a page when looking at <br> its layout. The point of using Lorem Ipsum is that it has a.</p>
+      </div>
+    `;
+    return;
+  } else {
+    getPetsCardsContainer.classList.add('grid');
+  }
+
   pets.forEach((element) => {
     // console.log('element: ', element);
     const createPetCardDiv = document.createElement('div');
@@ -76,3 +142,13 @@ const displayAllFetchPets = (pets) => {
 
 fetchPetCategory();
 fetchAllPets();
+
+// Event listener for the sort button[.........for shorting purpose]
+document.getElementById('btn-sortPrice').addEventListener('click', async () => {
+  // call function to action sortbutton after click
+  // activeSortBtn();
+  // console.log('sort button clicked');
+  const pets = await fetchPets(); // Fetch videos from the API
+  console.log(pets);
+  sortpetsByPrice(pets); // Sort and render the pets
+});

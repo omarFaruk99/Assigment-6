@@ -68,7 +68,8 @@
     </header>
     <!-- ...............start Main Section....................... -->
     <main class="border-2 border-amber-950 mt-24">
-        <section id="pets-container" class="w-11/12 mx-auto h-96  border-2 border-red-700">
+        <section id="pets-container" class="w-11/12 mx-auto border-2 border-red-700">
+            <!-- pets container contex -->
             <div class="btn-category-context text-center flex flex-col gap-y-3 md:gap-y-6">
                 <h2 class="catergory-title text-2xl md:text-4xl font-bold">Adopt Your Best Friend</h2>
                 <p class="text-sm md:text-base catefory-des text-gray-500">It is a long established fact that a reader
@@ -76,10 +77,15 @@
                     the readable content of <br> page when looking at its layout. The point of using Lorem Ipsum is that
                     it has a.</p>
             </div>
+            <!-- pets category button container -->
+            <nav id="btn-category-container"
+                class="flex flex-col sm:flex-row justify-around  items-center text-center mt-12 gap-4">
+
+            </nav>
         </section>
     </main>
 
-    <!-- daisy ui modal -->
+    <!-- ......................................................daisy ui modal........................................................... -->
     <!-- Open the modal using ID.showModal() method -->
     <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
@@ -95,7 +101,7 @@
     </dialog>
 
     <!-- scripts -->
-    <!-- <script src="./scripts/video.js"></script> -->
+    <script src="./script/peddyPets.js"></script>
 </body>
 
 </html>

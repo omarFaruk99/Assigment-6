@@ -70,6 +70,26 @@ const clickDetailsBtn = async (petID) => {
   displayPetDetailsOnclick(data.petData);
 };
 
+// fetch pets by 'PetID' when click on 'thumpsUP icon'
+const clickThumbsUP = async (petID) => {
+  const url = `https://openapi.programming-hero.com/api/peddy/pet/${petID}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayAppend(data.petData);
+  // displayPetDetailsOnclick(data.petData);
+};
+
+// append specific pet image into 'append' section
+const displayAppend = (specificPetObj) => {
+  const getAppendContainer = document.getElementById('like-btn-append');
+  const createPetImageDiv = document.createElement('div');
+  createPetImageDiv.classList.add('m-2');
+  createPetImageDiv.innerHTML = `
+      <img src= ${specificPetObj.image} alt="" class="w-full h-auto object-cover rounded-md" >  
+    `;
+  getAppendContainer.append(createPetImageDiv);
+};
+
 // displayPetDetails: when click on details btn then [onclick > clickDetailsBtn > displayPetDetailsOnclick]
 const displayPetDetailsOnclick = (specificPetID) => {
   const modalContent = document.getElementById('modal-content');
@@ -228,7 +248,9 @@ const displayAllFetchPets = (pets) => {
             </div>
         </div>
         <div class="flex flex-col sm:flex-row lg:flex-row items-center mt-3 flex-wrap gap-1 lg:justify-evenly"> 
-            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
+            <button onclick ="clickThumbsUP('${
+              element.petId
+            }')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
                 <i class="fa-regular fa-thumbs-up"></i>
             </button>
             <button onclick ="clickAdoptBtnDisplay()" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>

@@ -257,6 +257,18 @@ const displayAllFetchPets = (pets) => {
     // console.log('element: ', element);
     const createPetCardDiv = document.createElement('div');
     createPetCardDiv.classList = 'border border-gray-200 p-5 rounded-lg';
+
+    // Define custom text for unavailable values
+    const breed = element.breed || 'Not Available';
+    const birth = element.date_of_birth
+      ? new Date(element.date_of_birth).getFullYear()
+      : 'Not Available';
+    const gender = element.gender || 'Not Available';
+    const price =
+      element.price !== null && !isNaN(element.price)
+        ? `${element.price}$`
+        : 'Not Available';
+
     createPetCardDiv.innerHTML = `
         <div class = "flex flex-col border-b-2">
             <figure>
@@ -268,30 +280,24 @@ const displayAllFetchPets = (pets) => {
                 <h5 class="pet-name font-bold text-xl" >${element.pet_name}</h5>
                 <p class="breed text-gray-400">
                     <i class="fa-solid fa-qrcode"></i>
-                     Breed: ${element.breed}</p>
+                     Breed: ${breed}</p>
                 <p class="birth text-gray-400">
                     <i class="fa-regular fa-calendar"></i>
-                     Birth: ${new Date(
-                       element.date_of_birth
-                     ).getFullYear()}</p>  
+                     Birth: ${birth}</p>  
                 <p class="gender text-gray-400">
                     <i class="fa-solid fa-mercury"></i>
-                     Gender: ${element.gender}</p>
+                     Gender: ${gender}</p>
                 <p class="price text-gray-400">
                     <i class="fa-solid fa-dollar-sign"></i>
-                     Price: ${element.price}$</p>
+                     Price: ${price}$</p>
             </div>
         </div>
         <div class="flex flex-col sm:flex-row lg:flex-row items-center mt-3 flex-wrap gap-1 lg:justify-evenly"> 
-            <button onclick ="clickThumbsUP('${
-              element.petId
-            }')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
+            <button onclick ="clickThumbsUP('${element.petId}')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
                 <i class="fa-regular fa-thumbs-up"></i>
             </button>
             <button onclick ="clickAdoptBtnDisplay()" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>
-            <button onclick="clickDetailsBtn('${
-              element.petId
-            }')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
+            <button onclick="clickDetailsBtn('${element.petId}')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
         </div>
        
 

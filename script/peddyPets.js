@@ -221,7 +221,7 @@ const displayAllFetchPets = (pets) => {
   pets.forEach((element) => {
     // console.log('element: ', element);
     const createPetCardDiv = document.createElement('div');
-    createPetCardDiv.classList = 'border-2 p-5 rounded-lg';
+    createPetCardDiv.classList = 'border border-gray-200 p-5 rounded-lg';
     createPetCardDiv.innerHTML = `
         <div class = "flex flex-col border-b-2">
             <figure>

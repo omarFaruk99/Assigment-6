@@ -62,6 +62,66 @@ function sortpetsByPrice(pets) {
   displayAllFetchPets(pets); // Re-render the sorted videos[send to displayVideos function]
 }
 
+// Load pets by 'PetID' when clike on 'details' button.............................................................
+const clickDetailsBtn = async (petID) => {
+  const url = `https://openapi.programming-hero.com/api/peddy/pet/${petID}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayPetDetailsOnclick(data.petData);
+};
+
+// displayPetDetails: when click on details btn then [onclick > clickDetailsBtn > displayPetDetailsOnclick]
+const displayPetDetailsOnclick = (specificPetID) => {
+  const modalContent = document.getElementById('modal-content');
+  modalContent.innerHTML = `
+     <div>
+        <div>
+            <img src=${specificPetID.image} alt="" class="rounded-md">
+        </div>
+
+        <div class="mt-3" > <h5 class="pet-name font-bold text-xl" >${
+          specificPetID.pet_name
+        }</h5>
+        </div>
+        
+        <div class="flex gap-x-5 border-b-2 mt-2">
+            <div>
+                <p class="breed text-gray-400">
+                    <i class="fa-solid fa-qrcode"></i>
+                      Breed: ${specificPetID.breed}</p>
+                <p class="gender text-gray-400">
+                      <i class="fa-solid fa-mercury"></i>
+                      Gender: ${specificPetID.gender}</p>
+                <p class="gender text-gray-400">
+                      <i class="fa-solid fa-mercury"></i>
+                      vaccinated_status: ${
+                        specificPetID.vaccinated_status
+                      }</p>      
+                      
+            </div>
+            <div>
+                <p class="birth text-gray-400">
+                    <i class="fa-regular fa-calendar"></i>
+                      Birth: ${new Date(
+                        specificPetID.date_of_birth
+                      ).getFullYear()}</p>  
+                <p class="price text-gray-400">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    Price: ${specificPetID.price}$</p>     
+            </div>   
+         </div>
+          <div class="mt-3"> 
+                <h5 class="font-semibold text-base" >Details Information</h5>
+                <p class="text-gray-400">${specificPetID.pet_details}</p>
+          </div> 
+    </div>  
+    
+  `;
+
+  const modal = document.getElementById('my_modal_5');
+  modal.showModal();
+};
+
 // display All Pet Catefories Button..........................................................
 const displayFetchPetCategory = (petCategory) => {
   const getPetCategoryBtnContainer = document.getElementById(
@@ -131,7 +191,9 @@ const displayAllFetchPets = (pets) => {
                 <i class="fa-regular fa-thumbs-up"></i>
             </button>
             <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>
-            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
+            <button onclick="clickDetailsBtn('${
+              element.petId
+            }')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
         </div>
        
 

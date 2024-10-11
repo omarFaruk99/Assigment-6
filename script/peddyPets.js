@@ -12,27 +12,62 @@ const fetchAllPets = () => {
   );
 };
 
-// Fetch pets by category
-const loadCategoryPet = (petCategory) => {
-  // console.log(petCategory);
-  const petCategoryBtnId = document.getElementById(`pet-${petCategory}`);
-  const petCategoryBtnClass = document.querySelectorAll('.petsBtn');
-
-  // Remove 'colorBtn: active btn bg color' class from all buttons (deactivate all)
-  petCategoryBtnClass.forEach((activeBtn) => {
-    activeBtn.classList.remove('colorBtn');
-  });
-
-  // Add 'colorBtn: active btn bg color' class to the clicked button (activate current button)
-  petCategoryBtnId.classList.add('colorBtn');
-
-  fetch(
-    `https://openapi.programming-hero.com/api/peddy/category/${petCategory}`
-  )
-    .then((res) => res.json())
-    .then((data) => displayAllFetchPets(data.data)) // Function to display videos
-    .catch((err) => console.log(err));
+// Show the spinner and hide the pets cards container
+const showSpinner = () => {
+  document.getElementById('spinner').classList.remove('hidden');
+  document.getElementById('pets-cards-container').classList.add('hidden'); // Hide the pets container
 };
+
+// Hide the spinner and show the pets cards container
+const hideSpinner = () => {
+  document.getElementById('spinner').classList.add('hidden');
+  document.getElementById('pets-cards-container').classList.remove('hidden'); // Show the pets container
+};
+
+// Fetch pets by category and show spinner for 2 seconds
+const loadCategoryPet = (petCategory) => {
+  // Show the spinner
+  showSpinner();
+
+  // Fetch category-specific pets after 2 seconds
+  setTimeout(() => {
+    fetch(
+      `https://openapi.programming-hero.com/api/peddy/category/${petCategory}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        // Hide the spinner and display pets
+        hideSpinner();
+        displayAllFetchPets(data.data); // Function to display pets
+      })
+      .catch((err) => {
+        hideSpinner(); // Hide spinner on error
+        console.log(err);
+      });
+  }, 2000); // Ensure spinner is shown for at least 2 seconds
+};
+
+// Fetch pets by category...............@@@@@@@@@@@@@@@@@@@@@@@@
+// const loadCategoryPet = (petCategory) => {
+//   // console.log(petCategory);
+//   const petCategoryBtnId = document.getElementById(`pet-${petCategory}`);
+//   const petCategoryBtnClass = document.querySelectorAll('.petsBtn');
+
+//   // Remove 'colorBtn: active btn bg color' class from all buttons (deactivate all)
+//   petCategoryBtnClass.forEach((activeBtn) => {
+//     activeBtn.classList.remove('colorBtn');
+//   });
+
+//   // Add 'colorBtn: active btn bg color' class to the clicked button (activate current button)
+//   petCategoryBtnId.classList.add('colorBtn');
+
+//   fetch(
+//     `https://openapi.programming-hero.com/api/peddy/category/${petCategory}`
+//   )
+//     .then((res) => res.json())
+//     .then((data) => displayAllFetchPets(data.data)) // Function to display videos
+//     .catch((err) => console.log(err));
+// };
 
 // Function to fetch videos from the API[......for sorting purpose].............????????????????????.....................
 async function fetchPets() {
@@ -183,7 +218,7 @@ const clickAdoptBtnDisplay = () => {
   }, 1000); // Run the countdown every 1 second
 };
 
-// display All Pet Catefories Button..........................................................
+// display All Pet Catefories Button..............@@@@@@@@@@@@@@@@@@@@@....................................
 const displayFetchPetCategory = (petCategory) => {
   const getPetCategoryBtnContainer = document.getElementById(
     'btn-category-container'
@@ -276,4 +311,13 @@ document.getElementById('btn-sortPrice').addEventListener('click', async () => {
   const pets = await fetchPets(); // Fetch videos from the API
   console.log(pets);
   sortpetsByPrice(pets); // Sort and render the pets
+});
+
+// On page load, show the spinner for 2 seconds and then load all pets
+document.addEventListener('DOMContentLoaded', () => {
+  showSpinner();
+  setTimeout(() => {
+    hideSpinner();
+    fetchAllPets(); // Fetch all pets after spinner
+  }, 2000);
 });

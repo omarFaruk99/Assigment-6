@@ -11,3 +11,9 @@
 .colorBtnText {
   color: #138a92;
 }
+
+/* handshake: when click "Adopt" */
+.icon {
+  font-size: 50px; /* Adjust size as needed */
+  color: #138a92;
+}

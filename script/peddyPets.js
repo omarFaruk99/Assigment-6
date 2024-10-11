@@ -58,7 +58,7 @@ async function fetchPets() {
 // function to sort videos by views[.....for sorting purpose].............................................................
 function sortpetsByPrice(pets) {
   // pets.sort((a, b) => parseViews(a.price) - parseViews(b.price));
-  pets.sort((a, b) => a.price - b.price);
+  pets.sort((b, a) => a.price - b.price);
   displayAllFetchPets(pets); // Re-render the sorted videos[send to displayVideos function]
 }
 
@@ -75,8 +75,8 @@ const displayPetDetailsOnclick = (specificPetID) => {
   const modalContent = document.getElementById('modal-content');
   modalContent.innerHTML = `
      <div>
-        <div>
-            <img src=${specificPetID.image} alt="" class="rounded-md">
+        <div class="flex justify-center">
+            <img src=${specificPetID.image} alt="" class="rounded-md w-full">
         </div>
 
         <div class="mt-3" > <h5 class="pet-name font-bold text-xl" >${
@@ -120,6 +120,47 @@ const displayPetDetailsOnclick = (specificPetID) => {
 
   const modal = document.getElementById('my_modal_5');
   modal.showModal();
+};
+
+// clickAdoptBtnDisplay(): when click 'Adopt' btn then [onclick > clickAdoptBtnDisplay]
+const clickAdoptBtnDisplay = () => {
+  const getModalContent = document.getElementById('modal-content');
+
+  // Hide the Close button dynamically
+  const closeButton = document.querySelector('#my_modal_5 .modal-action .btn');
+  closeButton.style.display = 'none'; // Hide the close button
+
+  // Initial countdown value
+  let countdownValue = 3;
+
+  // Set initial modal content
+  getModalContent.innerHTML = `
+    <div class="flex flex-col justify-center items-center pt-7 gap-5">
+      <i class="fa-regular fa-handshake icon"></i>
+      <h3 class="font-extrabold text-4xl">Congrats</h3>
+      <h2 class="font-extrabold text-5xl colorBtnText">${countdownValue}</h2>
+    </div>
+  `;
+
+  // Show the modal
+  const modal = document.getElementById('my_modal_5');
+  modal.showModal();
+
+  // Set up the countdown
+  const interval = setInterval(() => {
+    countdownValue--;
+
+    // Update the countdown display
+    const countdownElement = getModalContent.querySelector('h2');
+    countdownElement.textContent = `${countdownValue}`;
+
+    // When countdown reaches 0, close the modal and clear the interval
+    if (countdownValue === 0) {
+      clearInterval(interval);
+      modal.close();
+      closeButton.style.display = 'block';
+    }
+  }, 1000); // Run the countdown every 1 second
 };
 
 // display All Pet Catefories Button..........................................................
@@ -190,7 +231,7 @@ const displayAllFetchPets = (pets) => {
             <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md w-full lg:w-auto">
                 <i class="fa-regular fa-thumbs-up"></i>
             </button>
-            <button class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>
+            <button onclick ="clickAdoptBtnDisplay()" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto ">Adopt</button>
             <button onclick="clickDetailsBtn('${
               element.petId
             }')" class="border border-gray-300 px-2 sm:px-5 py-2 rounded-md colorBtnText font-bold w-full lg:w-auto">Details</button>    
